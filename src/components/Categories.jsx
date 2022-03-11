@@ -19,7 +19,6 @@ export default class Categories extends Component {
   async requestCategories() {
     const response = await getCategories();
     this.setState({ dataCategories: response });
-    console.log(response);
   }
 
   render() {

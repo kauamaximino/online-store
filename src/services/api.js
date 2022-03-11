@@ -9,8 +9,9 @@ export async function getCategories() {
   }
 }
 
-export async function getProductsFromCategoryAndQuery(categoryId, query) {
-  const urlAll = `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}&q=${query}`;
+export async function getProductsFromCategoryAndQuery(query) {
+  // const urlAll = `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}&q=${query}`;
+  const urlAll = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
   try {
     const response = await fetch(urlAll);
     const data = await response.json();
