@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Categories from './Categories';
-import SearchProduct from './SearchProduct';
+import Categories from '../components/Categories';
+import SearchProduct from '../components/SearchProduct';
 
 class Home extends React.Component {
   render() {
