@@ -10,9 +10,6 @@ export default class ProductCard extends Component {
         <h5 className="title-product-card">{title}</h5>
         <img className="img-product-card" src={ thumbnail } alt={ title } />
         <p className="price-product-card">{`R$ ${price}`}</p>
-        {/* <Link to={ `/productdetails/${id}` }>
-          <button type="button">Detalhes do produto</button>
-        </Link> */}
       </div>
     );
   }
