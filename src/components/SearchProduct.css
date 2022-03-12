@@ -1,0 +1,80 @@
+.container-radio-categories {
+
+  /* border: 1px solid red; */
+  background-color: rgb(218, 217, 214);
+  padding: 35px 5px;
+  width: 20%;
+}
+
+.categories-radio {
+  padding: 5px;
+
+}
+
+.input-radio {
+  padding: 5px 50px;
+}
+
+.container-form-search {
+
+  /* border: 1px solid black; */
+
+  /* background-color: rgb(230, 235, 245); */
+  width: 100%;
+}
+
+.container-product-card {
+
+  /* background-color: rgba(255, 255, 255, 0.747); */
+}
+
+.container-categories-productCard {
+
+  /* background-color: rgb(192, 214, 255); */
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%;
+  padding: 20px 10px;
+
+  /* flex-wrap: wrap; */
+  width: 100%;
+
+}
+
+.container-geral-product-card {
+
+  /* border: 1px solid red; */
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+
+}
+
+[ data-testid = 'query-input' ] {
+  background: rgba(255, 255, 255, 0);
+  background-image: url('https://svg-clipart.com/clipart/icon/nQy8yy4-search-icon-white-one-clipart.png');
+  background-position: 20px 4px;
+  background-repeat: no-repeat;
+  background-size: 40px;
+  border: 2px solid white;
+  border-radius: 120px;
+  color: white;
+  font-size: 1.32em;
+  font-weight: 600;
+  height: 100%;
+  padding: 10px 70px;
+  width: 80%;
+}
+
+[ data-testid = 'query-button' ] {
+  background-color: rgba(3, 107, 82, 1);
+  border: none;
+  border-radius: 120px;
+  color: #e7f1f8;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  height: 100%;
+  padding: 14px 15px;
+  text-align: center;
+}

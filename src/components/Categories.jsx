@@ -1,44 +1,55 @@
-import React, { Component } from 'react';
-import { getCategories } from '../services/api';
+// import React, { Component } from 'react';
+// import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+// import ProductCard from './ProductCard';
+// import SearchProduct from './SearchProduct';
 
-export default class Categories extends Component {
-  constructor(props) {
-    super(props);
+// export default class Categories extends Component {
+//   constructor(props) {
+//     super(props);
 
-    this.state = {
-      dataCategories: [],
-    };
+//     this.state = {
+//       dataCategories: [],
+//       selectedOptionList: [],
+//       getCategoryId: '',
+//     };
 
-    this.requestCategories = this.requestCategories.bind(this);
-  }
+//     this.requestCategories = this.requestCategories.bind(this);
+//     this.handleChangeRadio = this.handleChangeRadio.bind(this);
+//   }
 
-  componentDidMount() {
-    this.requestCategories();
-  }
+//   componentDidMount() {
+//     this.requestCategories();
+//   }
 
-  async requestCategories() {
-    const response = await getCategories();
-    this.setState({ dataCategories: response });
-  }
+//   async handleChangeRadio({ target: { value } }) {
+//     const { results } = await getProductsFromCategoryAndQuery(value, false);
+//     this.setState({ getCategoryId: value, selectedOptionList: results });
+//   }
 
-  render() {
-    const { dataCategories } = this.state;
-    return (
-      <div>
-        <ul>
-          {dataCategories.map(({ name, id }) => (
-            <div key={ id }>
-              <li>{ name }</li>
-              <label htmlFor="radio-categories" data-testid="category">
-                <input name="radio-categories" type="radio" id="radio-categories" />
-              </label>
-            </div>
-          ))}
-        </ul>
-        {/* {dataCategories.map(({ name, id }) => (
-          <button key={ id } type="button" data-testid="category">{ name }</button>
-        ))} */}
-      </div>
-    );
-  }
-}
+//   async requestCategories() {
+//     const response = await getCategories();
+//     this.setState({ dataCategories: response });
+//   }
+
+//   render() {
+//     const { dataCategories, selectedOptionList, getCategoryId } = this.state;
+//     return (
+//       <div>
+//         {dataCategories.map(({ name, id }) => (
+//           <div key={ id }>
+//             <label htmlFor={ id } data-testid="category">
+//               <input
+//                 value={ id }
+//                 name="radio-category"
+//                 type="radio"
+//                 id={ id }
+//                 onChange={ this.handleChangeRadio }
+//               />
+//               {name}
+//             </label>
+//           </div>
+//         ))}
+//       </div>
+//     );
+//   }
+// }
