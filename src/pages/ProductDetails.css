@@ -1,0 +1,7 @@
+.container-link-return-cart {
+
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}

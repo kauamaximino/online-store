@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getItem } from '../services/api';
-import ProductCard from './ProductCard';
+import ProductCard from '../components/ProductCard';
+import imgcart from './imgcart.png';
+import iconReturn from './iconReturn.svg';
+import './ProductDetails.css';
 
 export default class ProductDetails extends Component {
   constructor() {
@@ -31,7 +35,15 @@ export default class ProductDetails extends Component {
   render() {
     const { requestResult, details } = this.state;
     return (
-      <div>
+      <div className="container-product-details">
+        <div className="container-link-return-cart">
+          <Link to="/" className="img-cart">
+            <img src={ iconReturn } alt="imagem shopping cart" width="50px" />
+          </Link>
+          <Link to="/cart" data-testid="shopping-cart-button" className="img-cart">
+            <img src={ imgcart } alt="imagem icon return" width="50px" />
+          </Link>
+        </div>
         <div>
           <ProductCard { ...requestResult } />
         </div>
@@ -42,7 +54,6 @@ export default class ProductDetails extends Component {
               <p>{ `${element.name}: ${element.value_name}` }</p>
             </div>))}
         </div>
-
       </div>
     );
   }

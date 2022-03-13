@@ -6,13 +6,17 @@ export default class ProductCard extends Component {
   render() {
     const { title, thumbnail, price } = this.props;
     return (
-      <div className="container-product-card" data-testid="product">
+      <div className="product-card" data-testid="product">
         <h5 className="title-product-card">{title}</h5>
-        <img className="img-product-card" src={ thumbnail } alt={ title } />
+        <div className="img-product-card">
+          <img src={ thumbnail } alt={ title } />
+        </div>
         <p className="price-product-card">{`R$ ${price}`}</p>
-        {/* <Link to={ `/productdetails/${id}` }>
-          <button type="button">Detalhes do produto</button>
-        </Link> */}
+        <div className="container-add-remove-card">
+          <button className="button-add-qtd" type="button"> + </button>
+          <input className="input-qtd-cart" />
+          <button className="button-add-qtd" type="button"> - </button>
+        </div>
       </div>
     );
   }
@@ -20,7 +24,6 @@ export default class ProductCard extends Component {
 
 ProductCard.propTypes = {
   title: PropType.string.isRequired,
-  // id: PropType.string.isRequired,
   thumbnail: PropType.string.isRequired,
   price: PropType.number.isRequired,
 };
