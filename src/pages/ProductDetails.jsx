@@ -40,7 +40,11 @@ export default class ProductDetails extends Component {
           <Link to="/" className="img-cart">
             <img src={ iconReturn } alt="imagem shopping cart" width="50px" />
           </Link>
-          <Link to="/cart" data-testid="shopping-cart-button" className="img-cart">
+          <Link
+            to="/cart"
+            data-testid="shopping-cart-button"
+            className="img-cart"
+          >
             <img src={ imgcart } alt="imagem icon return" width="50px" />
           </Link>
         </div>
