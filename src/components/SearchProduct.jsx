@@ -97,6 +97,7 @@ export default class SearchProduct extends Component {
                 ? dataCardResult.map((element) => (
                   <div className="container-product-card" key={ element.id }>
                     <ProductCard
+                      id={ element.id }
                       title={ element.title }
                       thumbnail={ element.thumbnail }
                       price={ element.price }
