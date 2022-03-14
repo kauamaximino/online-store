@@ -57,3 +57,114 @@ body {
   position: absolute;
   top: 85px;
 }
+
+/* daqui pra baixo é o CSS do falecido SearchProduct */
+.container-radio-categories {
+  background-color: rgb(221, 221, 221);
+  border-bottom: 5px solid white;
+  border-left: 5px solid white;
+  border-right: 5px solid white;
+  height: 100%;
+  padding: 35px 5px;
+  width: 20%;
+
+}
+
+.categories-radio {
+  padding: 5px;
+}
+
+.input-radio {
+  padding: 5px 50px;
+
+}
+
+.container-form-search {
+  left: 50px;
+  position: absolute;
+  top: 70px;
+  width: 80%;
+
+}
+
+.container-product-card {
+  background: rgb(256, 255, 255);
+  border-radius: 8px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: space-evenly;
+  margin: 5px;
+  width: 200px;
+}
+
+.container-categories-productCard {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%;
+  top: 150px;
+  width: 100%;
+
+}
+
+.container-geral-product-card {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 100px;
+  width: 80%;
+
+}
+
+[ data-testid = 'query-input' ] {
+  background: rgba(255, 255, 255, 0);
+  background-image: url('https://svg-clipart.com/clipart/icon/nQy8yy4-search-icon-white-one-clipart.png');
+  background-position: 20px 4px;
+  background-repeat: no-repeat;
+  background-size: 40px;
+  border: 2px solid white;
+  border-radius: 120px;
+  color: white;
+  font-size: 1.32em;
+  font-weight: 600;
+  height: 100%;
+  padding: 10px 70px;
+  width: 80%;
+}
+
+[ data-testid = 'query-button' ] {
+  background-color: rgba(3, 107, 82, 1);
+  border: none;
+  border-radius: 120px;
+  color: #e7f1f8;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  height: 100%;
+  padding: 14px 15px;
+  text-align: center;
+}
+
+
+[ data-testid = 'product-detail-link' ] {
+  align-items: center;
+  color: black;
+  display: flex;
+  font-size: 12px;
+  height: 15%;
+  justify-content: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.message-not-found {
+  color: rgb(221, 221, 221);
+  font-size: 20px;
+  left: 30%;
+  position: absolute;
+  top: 155px;
+}

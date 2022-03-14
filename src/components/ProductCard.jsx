@@ -6,54 +6,33 @@ export default class ProductCard extends Component {
   constructor() {
     super();
     this.state = {
-      addItem: 0,
+      addItem: false,
 
     };
-    this.handleAddButton = this.handleAddButton.bind(this);
-    this.handleRemoveButton = this.handleRemoveButton.bind(this);
+    // this.handleAddButton = this.handleAddButton.bind(this);
+    // this.handleRemoveButton = this.handleRemoveButton.bind(this);
     // this.testValor = this.testValor.bind(this);
   }
 
-  componentDidMount() {
-    const test = Object.keys(localStorage);
-    const getQtdStorage = localStorage.getItem(test);
-    if (getQtdStorage === null) {
-      localStorage.setItem(test, 1);
-    } else {
-      localStorage.setItem(test, (parseFloat(getQtdStorage) + 1) - 1);
-    }
-    this.setState({ addItem: localStorage.getItem(test) });
-  }
+  // handleAddButton(event) {
+  //   const getQtdStorage = localStorage.getItem(event.target.id);
+  //   if (getQtdStorage === null) {
+  //     localStorage.setItem(event.target.id, 1);
+  //   } else {
+  //     localStorage.setItem(event.target.id, parseFloat(getQtdStorage) + 1);
+  //   }
+  //   this.setState({ addItem: localStorage.getItem(event.target.id) });
+  // }
 
-  handleAddButton(event) {
-    const getQtdStorage = localStorage.getItem(event.target.id);
-    if (getQtdStorage === null) {
-      localStorage.setItem(event.target.id, 1);
-    } else {
-      localStorage.setItem(event.target.id, parseFloat(getQtdStorage) + 1);
-    }
-    this.setState({ addItem: localStorage.getItem(event.target.id) });
-  }
-
-  handleRemoveButton(event) {
-    const getQtdStorage = localStorage.getItem(event.target.id);
-    if (getQtdStorage !== null) {
-      localStorage.setItem(event.target.id, parseFloat(getQtdStorage) - 1);
-    }
-    if (getQtdStorage < 2) {
-      localStorage.removeItem(event.target.id);
-    }
-    this.setState({ addItem: localStorage.getItem(event.target.id) });
-  }
-
-  // handleAddButton() {
-  //   const { id } = this.props;
-  //   const { addItem } = this.state;
-  //   this.setState((prevState) => ({ addItem: prevState.addItem + 1 }), () => {
-  //   });
-  //   localStorage.setItem(id, addItem);
-  //   console.log(addItem);
-  //   // localStorage.clear();
+  // handleRemoveButton(event) {
+  //   const getQtdStorage = localStorage.getItem(event.target.id);
+  //   if (getQtdStorage !== null) {
+  //     localStorage.setItem(event.target.id, parseFloat(getQtdStorage) - 1);
+  //   }
+  //   if (getQtdStorage < 2) {
+  //     localStorage.removeItem(event.target.id);
+  //   }
+  //   this.setState({ addItem: localStorage.getItem(event.target.id) });
   // }
 
   // handleRemoveButton() {
@@ -77,7 +56,7 @@ export default class ProductCard extends Component {
   // }
 
   render() {
-    const { title, thumbnail, price, id } = this.props;
+    const { title, thumbnail, price, id, handleAddButton } = this.props;
     const { addItem } = this.state;
     return (
       <div className="product-card" data-testid="product">
@@ -102,15 +81,16 @@ export default class ProductCard extends Component {
             data-testid="product-add-to-cart"
             className="button-add-qtd"
             type="button"
-            onClick={ this.handleAddButton }
+            onClick={ handleAddButton }
             id={ id }
+
           >
             {' '}
             +
             {' '}
 
           </button>
-          <p
+          {/* <p
             data-testid="shopping-cart-product-quantity"
             className="input-qtd-cart"
           >
@@ -127,7 +107,7 @@ export default class ProductCard extends Component {
             -
             {' '}
 
-          </button>
+          </button> */}
         </div>
       </div>
     );
