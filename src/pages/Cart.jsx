@@ -1,17 +1,44 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import iconReturn from './iconReturn.svg';
+import { getItem } from '../services/api';
+import ProductCard from '../components/ProductCard';
 
 export default class Cart extends Component {
+  constructor() {
+    super();
+    this.state = {
+      requestResult: [],
+    };
+    this.request = this.request.bind(this);
+    this.get = this.get.bind(this);
+  }
+
+  componentDidMount() {
+    this.get();
+  }
+
+  async request(element) {
+    const response = await getItem(element);
+    this.setState((oldElement) => ({
+      requestResult: [...oldElement.requestResult, response],
+    }));
+    // console.log(this.state.requestResult);
+  }
+
+  get() {
+    const items = Object.keys(localStorage);
+    items.forEach(this.request);
+  }
+
   render() {
-    console.log(requestResult);
+    const { requestResult } = this.state;
     return (
       <div>
-        <Link to="/" className="img-cart">
-          <img src={ iconReturn } alt="imagem shopping cart" width="50px" />
-        </Link>
+        {requestResult.map((element) => (
+          <div key={ element.id }>
+            <ProductCard { ...element } />
+          </div>
+        )) }
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-        {/* <h5 data-testid="product-detail-name">{ requestResult.title }</h5> */}
       </div>
     );
   }
