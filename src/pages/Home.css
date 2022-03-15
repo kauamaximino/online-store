@@ -46,7 +46,7 @@ body {
   /* margin: 20px 55px 0 0; */
   display: flex;
   height: 60px;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 10px 70px;
   width: 20%;
 

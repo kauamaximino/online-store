@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { getProductsFromCategoryAndQuery, getCategories, getItem } from '../services/api';
+import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
 import imgcart from './imgcart.png';
 import './Home.css';
 
@@ -46,10 +46,9 @@ class Home extends React.Component {
   }
 
   async handleAddButton({ target }) {
-    console.log(target.id);
-    const { thumbnail, id, price, title } = await getItem(target.id);
-    const obj = { thumbnail, id, price, title };
-    this.setState((prev) => ({ productsId: [...prev.productsId, obj] }));
+    // const { thumbnail, id, price, title } = await getItem(target.id);
+    // const obj = { thumbnail, id, price, title };
+    this.setState((prev) => ({ productsId: [...prev.productsId, target.id] }));
   }
 
   async requestCategories() {
@@ -59,9 +58,9 @@ class Home extends React.Component {
 
   render() {
     const { inputSearch, dataCardResult, dataCategories, productsId } = this.state;
+
     return (
       <main className="container-geral">
-
         <header className="container-button-cart">
           <span className="title">
             <strong>trybe</strong>
@@ -130,6 +129,7 @@ class Home extends React.Component {
                         title={ element.title }
                         thumbnail={ element.thumbnail }
                         price={ element.price }
+                        dataCardResult={ dataCardResult }
                         handleAddButton={ this.handleAddButton }
                       />
                       <Link
