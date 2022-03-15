@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { getItem } from '../services/api';
 import ProductCard from '../components/ProductCard';
 import imgcart from './imgcart.png';
-// import iconReturn from './iconReturn.svg';
+import iconReturn from './iconReturn.svg';
 import './ProductDetails.css';
 
 export default class ProductDetails extends Component {
@@ -38,7 +38,7 @@ export default class ProductDetails extends Component {
       <div className="container-product-details">
         <div className="container-link-return-cart">
           <Link to="/" className="img-cart">
-            {/* <img src={ iconReturn } alt="imagem shopping cart" width="50px" /> */}
+            <img src={ iconReturn } alt="imagem shopping cart" width="50px" />
           </Link>
           <Link
             to="/cart"

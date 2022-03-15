@@ -3,16 +3,12 @@ import PropType from 'prop-types';
 import './ProductCard.css';
 
 export default class ProductCard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      addItem: false,
-
-    };
-    // this.handleAddButton = this.handleAddButton.bind(this);
-    // this.handleRemoveButton = this.handleRemoveButton.bind(this);
-    // this.testValor = this.testValor.bind(this);
-  }
+  // constructor() {
+  //   super();
+  // this.handleAddButton = this.handleAddButton.bind(this);
+  // this.handleRemoveButton = this.handleRemoveButton.bind(this);
+  // this.testValor = this.testValor.bind(this);
+  // }
 
   // handleAddButton(event) {
   //   const getQtdStorage = localStorage.getItem(event.target.id);
@@ -57,7 +53,6 @@ export default class ProductCard extends Component {
 
   render() {
     const { title, thumbnail, price, id, handleAddButton } = this.props;
-    const { addItem } = this.state;
     return (
       <div className="product-card" data-testid="product">
         <h5
@@ -78,6 +73,7 @@ export default class ProductCard extends Component {
         <div id={ id } className="container-add-remove-card">
           <button
             data-testid="product-add-to-cart"
+            // data-testid="product-detail-add-to-cart"
             className="button-add-qtd"
             type="button"
             onClick={ handleAddButton }
@@ -93,10 +89,10 @@ export default class ProductCard extends Component {
             data-testid="shopping-cart-product-quantity"
             className="input-qtd-cart"
           >
-            {addItem}
+            {quantity}
 
-          </p>
-          <button
+          </p> */}
+          {/* <button
             className="button-remove-qtd"
             type="button"
             onClick={ this.handleRemoveButton }
@@ -118,4 +114,5 @@ ProductCard.propTypes = {
   thumbnail: PropType.string.isRequired,
   price: PropType.number.isRequired,
   id: PropType.string.isRequired,
+  handleAddButton: PropType.func.isRequired,
 };
