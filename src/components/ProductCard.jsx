@@ -71,7 +71,7 @@ export default class ProductCard extends Component {
 
         </p>
         <div id={ id } className="container-add-remove-card">
-          <button
+          {/* <button
             data-testid="product-add-to-cart"
             // data-testid="product-detail-add-to-cart"
             className="button-add-qtd"
@@ -84,7 +84,7 @@ export default class ProductCard extends Component {
             +
             {' '}
 
-          </button>
+          </button> */}
           {/* <p
             data-testid="shopping-cart-product-quantity"
             className="input-qtd-cart"
