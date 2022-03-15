@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
+import { getProductsFromCategoryAndQuery, getCategories, getItem } from '../services/api';
 import imgcart from './imgcart.png';
 import './Home.css';
 
@@ -14,7 +14,7 @@ class Home extends React.Component {
       inputSearch: '',
       dataCardResult: '',
       dataCategories: [],
-      cartItemId: [],
+      productsId: [],
     };
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleChangeButton = this.handleChangeButton.bind(this);
@@ -45,9 +45,11 @@ class Home extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleAddButton({ target }) {
+  async handleAddButton({ target }) {
     console.log(target.id);
-    this.setState((prev) => ({ cartItemId: [...prev.cartItemId, target.id] }));
+    const { thumbnail, id, price, title } = await getItem(target.id);
+    const obj = { thumbnail, id, price, title };
+    this.setState((prev) => ({ productsId: [...prev.productsId, obj] }));
   }
 
   async requestCategories() {
@@ -56,7 +58,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { inputSearch, dataCardResult, dataCategories } = this.state;
+    const { inputSearch, dataCardResult, dataCategories, productsId } = this.state;
     return (
       <main className="container-geral">
 
@@ -65,8 +67,13 @@ class Home extends React.Component {
             <strong>trybe</strong>
             shopping
           </span>
-          <Link to="/cart" data-testid="shopping-cart-button" className="img-cart">
+          <Link
+            to={ { pathname: '/cart', productsId } }
+            // data-testid="shopping-cart-button"
+            className="img-cart"
+          >
             <img src={ imgcart } alt="imagem shopping cart" width="35px" />
+            <p data-testid="shopping-cart-button">{ productsId.length }</p>
           </Link>
         </header>
 

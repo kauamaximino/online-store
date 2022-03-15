@@ -61,7 +61,6 @@ export default class ProductCard extends Component {
     return (
       <div className="product-card" data-testid="product">
         <h5
-          data-testid="shopping-cart-product-name"
           className="title-product-card"
         >
           {title}

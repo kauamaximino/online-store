@@ -1,44 +1,66 @@
 import React, { Component } from 'react';
-import { getItem } from '../services/api';
-import ProductCard from '../components/ProductCard';
 
 export default class Cart extends Component {
   constructor() {
     super();
     this.state = {
       requestResult: [],
+      quantity: 1,
     };
-    this.request = this.request.bind(this);
-    this.get = this.get.bind(this);
+    this.renderItems = this.renderItems.bind(this);
   }
 
   componentDidMount() {
-    this.get();
+    this.renderItems();
   }
 
-  async request(element) {
-    const response = await getItem(element);
-    this.setState((oldElement) => ({
-      requestResult: [...oldElement.requestResult, response],
-    }));
-    // console.log(this.state.requestResult);
+  buttonDecrease = () => {
+    this.setState((prevState) => ({ quantity: prevState.quantity - 1 }));
   }
 
-  get() {
-    const items = Object.keys(localStorage);
-    items.forEach(this.request);
+  buttonIncrease = () => {
+    this.setState((prevState) => ({ quantity: prevState.quantity + 1 }));
+  }
+
+  renderItems() {
+    const { location: { productsId } } = this.props;
+    console.log(productsId);
+    this.setState({ requestResult: productsId });
   }
 
   render() {
-    const { requestResult } = this.state;
+    const { requestResult, quantity } = this.state;
     return (
       <div>
-        {requestResult.map((element) => (
-          <div key={ element.id }>
-            <ProductCard { ...element } />
-          </div>
-        )) }
-        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+        {requestResult
+          ? requestResult.map((element) => (
+            <div key={ element.id }>
+              <h5
+                data-testid="shopping-cart-product-name"
+                className="title-product-card"
+              >
+                {element.title}
+              </h5>
+              <img
+                className="img-product-card"
+                src={ element.thumbnail }
+                alt={ element.title }
+              />
+              <p className="price-product-card">{`R$ ${element.price}`}</p>
+              <p>{`Quantidade: ${quantity}`}</p>
+              <p>{`Valor total: ${(quantity * element.price).toFixed(2)}`}</p>
+              <button type="button" onClick={ this.buttonIncrease }>Increase</button>
+              <button type="button" onClick={ this.buttonDecrease }>Decrease</button>
+            </div>
+          ))
+          : <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p> }
+        {requestResult
+          && (
+            <p
+              data-testid="shopping-cart-product-quantity"
+            >
+              {`Quantidade de produtos: ${requestResult.length}`}
+            </p>)}
       </div>
     );
   }
