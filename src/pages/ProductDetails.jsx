@@ -34,6 +34,7 @@ export default class ProductDetails extends Component {
 
   render() {
     const { requestResult, details } = this.state;
+    const { match: { params: { id } }, handleChange } = this.props;
     return (
       <div className="container-product-details">
         <div className="container-link-return-cart">
@@ -48,8 +49,20 @@ export default class ProductDetails extends Component {
             <img src={ imgcart } alt="imagem icon return" width="50px" />
           </Link>
         </div>
-        <div>
+        <div id={ id }>
           <ProductCard { ...requestResult } />
+          <button
+            data-testid="product-detail-add-to-cart"
+            className="button-add-qtd"
+            type="button"
+            onClick={ handleChange }
+
+          >
+            {' '}
+            +
+            {' '}
+
+          </button>
         </div>
         <div>
           <h5 data-testid="product-detail-name">{ requestResult.title }</h5>

@@ -43,8 +43,15 @@ class App extends React.Component {
           />
 
           <Route
+            exact
             path="/productdetails/:id"
-            render={ (props) => <ProductDetails { ...props } /> }
+            // render={ (props) => <ProductDetails { ...props } />
+            // path="/productdetails"
+            render={ (props) => (<ProductDetails
+              { ...props }
+              productsId={ productsId }
+              handleChange={ this.handleChange }
+            />) }
           />
         </Switch>
       </BrowserRouter>

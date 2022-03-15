@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-max-depth */
 import React from 'react';
+import PropType from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
@@ -75,26 +75,24 @@ class Home extends React.Component {
         </div>
 
         <div className="container-search-input">
-          <div className="container-form-search">
-            <form>
-              <label htmlFor="inputSearch">
-                <input
-                  data-testid="query-input"
-                  name="inputSearch"
-                  id="inputSearch"
-                  value={ inputSearch }
-                  onChange={ this.handleChangeInput }
-                />
-              </label>
-              <button
-                data-testid="query-button"
-                type="button"
-                onClick={ this.handleChangeButton }
-              >
-                Buscar
-              </button>
-            </form>
-          </div>
+          <form className="container-form-search">
+            <label htmlFor="inputSearch">
+              <input
+                data-testid="query-input"
+                name="inputSearch"
+                id="inputSearch"
+                value={ inputSearch }
+                onChange={ this.handleChangeInput }
+              />
+            </label>
+            <button
+              data-testid="query-button"
+              type="button"
+              onClick={ this.handleChangeButton }
+            >
+              Buscar
+            </button>
+          </form>
           <div className="container-categories-productCard">
             <div className="container-radio-categories">
               {dataCategories.map(({ name, id }) => (
@@ -139,7 +137,6 @@ class Home extends React.Component {
                       </Link>
                       <button
                         data-testid="product-add-to-cart"
-                        // data-testid="product-detail-add-to-cart"
                         className="button-add-qtd"
                         type="button"
                         onClick={ handleChange }
@@ -161,5 +158,10 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  productsId: PropType.string,
+  handleChange: PropType.func,
+}.isRequired;
 
 export default Home;
