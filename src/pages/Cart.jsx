@@ -2,48 +2,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import iconReturn from './iconReturn.svg';
-import { getItem } from '../services/api';
 
 export default class Cart extends Component {
-  constructor() {
-    super();
-    this.state = {
-      requestResult: [],
-      quantity: 1,
-    };
-    this.renderItems = this.renderItems.bind(this);
-  }
-
-  componentDidMount() {
-    this.renderItems();
-  }
-
-  buttonDecrease = () => {
-    this.setState((prevState) => ({ quantity: prevState.quantity - 1 }));
-  }
-
-  buttonIncrease = () => {
-    this.setState((prevState) => ({ quantity: prevState.quantity + 1 }));
-  }
-
-  async renderItems() {
+  componentDidUpdate() {
     const { productsId } = this.props;
-    productsId.map(async (element) => {
-      const { thumbnail, id, price, title } = await getItem(element);
-      const obj = { thumbnail, id, price, title };
-      this.setState((prev) => ({ requestResult: [...prev.requestResult, obj] }));
-    });
+    console.log(productsId.filter((ele, prox) => productsId.indexOf(ele) === prox));
   }
 
   render() {
-    const { requestResult, quantity } = this.state;
+    const { productsId, handleDelete, buttonDecrease, buttonIncrease,
+      quantity } = this.props;
     return (
       <div>
         <Link to="/" className="img-cart">
           <img src={ iconReturn } alt="imagem shopping cart" width="50px" />
         </Link>
-        {requestResult.length > 0
-          ? requestResult.map((element) => (
+        {productsId.length > 0
+          ? productsId.filter((ele, prox) => productsId.indexOf(ele) === prox).map((element) => (
             <div key={ element.id }>
               <h5
                 data-testid="shopping-cart-product-name"
@@ -60,12 +35,19 @@ export default class Cart extends Component {
               <p
                 data-testid="shopping-cart-product-quantity"
               >
-                {`Quantidade: ${quantity}`}
-
+                {`Quantidade: 
+                ${productsId.filter((item) => item.id === element.id).length}`}
               </p>
               <p>{`Valor total: ${(quantity * element.price).toFixed(2)}`}</p>
-              <button type="button" onClick={ this.buttonIncrease }>Increase</button>
-              <button type="button" onClick={ this.buttonDecrease }>Decrease</button>
+              <button id={ element.id } type="button" onClick={ buttonIncrease }>Increase</button>
+              <button type="button" onClick={ buttonDecrease }>Decrease</button>
+              <button
+                type="button"
+                id={ element.id }
+                onClick={ handleDelete }
+              >
+                Remove
+              </button>
             </div>
           ))
           : <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p> }
@@ -78,4 +60,5 @@ Cart.propTypes = ({
   location: PropTypes.shape({
     productsId: PropTypes.string,
   }),
+  quantity: PropTypes.string,
 }).isRequired;

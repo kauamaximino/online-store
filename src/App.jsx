@@ -4,23 +4,48 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import './App.css';
 import ProductDetails from './pages/ProductDetails';
+import { getItem } from './services/api';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       productsId: [],
+      // quantity: 1,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete({ target }) {
+    const { productsId } = this.state;
+    const test = productsId.filter((element) => element.id !== target.id);
+    this.setState({
+      productsId: test,
+    });
   }
 
   async handleChange({ target }) {
-    this.setState((prev) => ({ productsId: [...prev.productsId, target.parentNode.id] }));
+    const { id } = target.parentNode;
+    const { thumbnail, price, title } = await getItem(id);
+    const obj = { thumbnail, id, price, title };
+    this.setState((prev) => ({ productsId: [...prev.productsId, obj] }));
+  }
+
+  buttonDecrease = () => {
+    // this.setState((prevState) => ({
+    //   quantity: prevState.quantity === 0 ? 0 : prevState.quantity - 1 }));
+  }
+
+  buttonIncrease = async ({ target }) => {
+    const { thumbnail, price, title } = await getItem(target.id);
+    const obj = { thumbnail, id: target.id, price, title };
+    this.setState((prev) => ({ productsId: [...prev.productsId, obj] }));
   }
 
   render() {
-    const { productsId } = this.state;
+    const { productsId, quantity } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -38,7 +63,10 @@ class App extends React.Component {
             path="/cart"
             render={ () => (<Cart
               productsId={ productsId }
-              handleChange={ this.handleChange }
+              quantity={ quantity }
+              handleDelete={ this.handleDelete }
+              buttonDecrease={ this.buttonDecrease }
+              buttonIncrease={ this.buttonIncrease }
             />) }
           />
 
