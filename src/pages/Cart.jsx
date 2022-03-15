@@ -27,7 +27,7 @@ export default class Cart extends Component {
   }
 
   async renderItems() {
-    const { location: { productsId } } = this.props;
+    const { productsId } = this.props;
     productsId.map(async (element) => {
       const { thumbnail, id, price, title } = await getItem(element);
       const obj = { thumbnail, id, price, title };

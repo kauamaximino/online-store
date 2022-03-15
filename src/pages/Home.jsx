@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-max-depth */
 import React from 'react';
+import PropType from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
@@ -14,13 +14,12 @@ class Home extends React.Component {
       inputSearch: '',
       dataCardResult: '',
       dataCategories: [],
-      productsId: [],
     };
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleChangeButton = this.handleChangeButton.bind(this);
     this.requestCategories = this.requestCategories.bind(this);
     this.handleChangeRadio = this.handleChangeRadio.bind(this);
-    this.handleAddButton = this.handleAddButton.bind(this);
+    // this.handleAddButton = this.handleAddButton.bind(this);
   }
 
   componentDidMount() {
@@ -45,19 +44,14 @@ class Home extends React.Component {
     this.setState({ [name]: value });
   }
 
-  async handleAddButton({ target }) {
-    // const { thumbnail, id, price, title } = await getItem(target.id);
-    // const obj = { thumbnail, id, price, title };
-    this.setState((prev) => ({ productsId: [...prev.productsId, target.id] }));
-  }
-
   async requestCategories() {
     const response = await getCategories();
     this.setState({ dataCategories: response });
   }
 
   render() {
-    const { inputSearch, dataCardResult, dataCategories, productsId } = this.state;
+    const { inputSearch, dataCardResult, dataCategories } = this.state;
+    const { productsId, handleChange } = this.props;
 
     return (
       <main className="container-geral">
@@ -67,7 +61,7 @@ class Home extends React.Component {
             shopping
           </span>
           <Link
-            to={ { pathname: '/cart', productsId } }
+            to="/cart"
             // data-testid="shopping-cart-button"
             className="img-cart"
           >
@@ -81,26 +75,24 @@ class Home extends React.Component {
         </div>
 
         <div className="container-search-input">
-          <div className="container-form-search">
-            <form>
-              <label htmlFor="inputSearch">
-                <input
-                  data-testid="query-input"
-                  name="inputSearch"
-                  id="inputSearch"
-                  value={ inputSearch }
-                  onChange={ this.handleChangeInput }
-                />
-              </label>
-              <button
-                data-testid="query-button"
-                type="button"
-                onClick={ this.handleChangeButton }
-              >
-                Buscar
-              </button>
-            </form>
-          </div>
+          <form className="container-form-search">
+            <label htmlFor="inputSearch">
+              <input
+                data-testid="query-input"
+                name="inputSearch"
+                id="inputSearch"
+                value={ inputSearch }
+                onChange={ this.handleChangeInput }
+              />
+            </label>
+            <button
+              data-testid="query-button"
+              type="button"
+              onClick={ this.handleChangeButton }
+            >
+              Buscar
+            </button>
+          </form>
           <div className="container-categories-productCard">
             <div className="container-radio-categories">
               {dataCategories.map(({ name, id }) => (
@@ -123,14 +115,18 @@ class Home extends React.Component {
               {
                 dataCardResult
                   ? dataCardResult.map((element) => (
-                    <div className="container-product-card" key={ element.id }>
+                    <div
+                      className="container-product-card"
+                      id={ element.id }
+                      key={ element.id }
+                    >
                       <ProductCard
                         id={ element.id }
                         title={ element.title }
                         thumbnail={ element.thumbnail }
                         price={ element.price }
                         dataCardResult={ dataCardResult }
-                        handleAddButton={ this.handleAddButton }
+                        // handleChange={ handleChange }
                       />
                       <Link
                         to={ `/productdetails/${element.id}` }
@@ -139,6 +135,18 @@ class Home extends React.Component {
                         <img src="https://icons.veryicon.com/png/o/education-technology/smart-campus-1/view-details-2.png" alt="imagem icon return" width="20px" />
                         <p>Detalhes do produto</p>
                       </Link>
+                      <button
+                        data-testid="product-add-to-cart"
+                        className="button-add-qtd"
+                        type="button"
+                        onClick={ handleChange }
+
+                      >
+                        {' '}
+                        +
+                        {' '}
+
+                      </button>
                     </div>))
                   : <p className="message-not-found">Nenhum produto foi encontrado</p>
               }
@@ -150,5 +158,10 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  productsId: PropType.string,
+  handleChange: PropType.func,
+}.isRequired;
 
 export default Home;
