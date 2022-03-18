@@ -34,7 +34,7 @@ export default class ProductDetails extends Component {
 
   render() {
     const { requestResult, details } = this.state;
-    const { match: { params: { id } }, handleChange } = this.props;
+    const { match: { params: { id } }, handleToCart } = this.props;
     return (
       <div className="container-product-details">
         <div className="container-link-return-cart">
@@ -55,7 +55,7 @@ export default class ProductDetails extends Component {
             data-testid="product-detail-add-to-cart"
             className="button-add-qtd"
             type="button"
-            onClick={ handleChange }
+            onClick={ handleToCart }
 
           >
             {' '}
