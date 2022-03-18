@@ -2,7 +2,7 @@ import React from 'react';
 import PropType from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
+import { getCategories } from '../services/api';
 import imgcart from './imgcart.png';
 import './Home.css';
 
@@ -11,37 +11,14 @@ class Home extends React.Component {
     super(props);
 
     this.state = {
-      inputSearch: '',
-      dataCardResult: '',
       dataCategories: [],
     };
-    this.handleChangeInput = this.handleChangeInput.bind(this);
-    this.handleChangeButton = this.handleChangeButton.bind(this);
+
     this.requestCategories = this.requestCategories.bind(this);
-    this.handleChangeRadio = this.handleChangeRadio.bind(this);
-    // this.handleAddButton = this.handleAddButton.bind(this);
   }
 
   componentDidMount() {
     this.requestCategories();
-  }
-
-  async handleChangeRadio({ target: { value } }) {
-    const { results } = await getProductsFromCategoryAndQuery(value, false);
-    this.setState({ dataCardResult: results });
-  }
-
-  async handleChangeButton() {
-    const { inputSearch } = this.state;
-    const { results } = await getProductsFromCategoryAndQuery(false, inputSearch);
-
-    this.setState({
-      dataCardResult: results,
-    });
-  }
-
-  handleChangeInput({ target: { name, value } }) {
-    this.setState({ [name]: value });
   }
 
   async requestCategories() {
@@ -50,8 +27,12 @@ class Home extends React.Component {
   }
 
   render() {
-    const { inputSearch, dataCardResult, dataCategories } = this.state;
-    const { productsId, handleChange } = this.props;
+    const { inputSearch, dataCategories } = this.state;
+    const {
+      productsId,
+      handleToCart,
+      dataCardResult,
+      handleChangeRadio, handleChangeButton, handleChangeInput } = this.props;
 
     return (
       <main className="container-geral">
@@ -82,13 +63,13 @@ class Home extends React.Component {
                 name="inputSearch"
                 id="inputSearch"
                 value={ inputSearch }
-                onChange={ this.handleChangeInput }
+                onChange={ handleChangeInput }
               />
             </label>
             <button
               data-testid="query-button"
               type="button"
-              onClick={ this.handleChangeButton }
+              onClick={ handleChangeButton }
             >
               Buscar
             </button>
@@ -104,7 +85,7 @@ class Home extends React.Component {
                       name="radio-category"
                       type="radio"
                       id={ id }
-                      onChange={ this.handleChangeRadio }
+                      onChange={ handleChangeRadio }
                     />
                     {name}
                   </label>
@@ -126,7 +107,6 @@ class Home extends React.Component {
                         thumbnail={ element.thumbnail }
                         price={ element.price }
                         dataCardResult={ dataCardResult }
-                        // handleChange={ handleChange }
                       />
                       <Link
                         to={ `/productdetails/${element.id}` }
@@ -139,7 +119,7 @@ class Home extends React.Component {
                         data-testid="product-add-to-cart"
                         className="button-add-qtd"
                         type="button"
-                        onClick={ handleChange }
+                        onClick={ handleToCart }
 
                       >
                         {' '}

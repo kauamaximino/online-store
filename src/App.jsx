@@ -4,18 +4,22 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import './App.css';
 import ProductDetails from './pages/ProductDetails';
-import { getItem } from './services/api';
+import { getProductsFromCategoryAndQuery } from './services/api';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       productsId: [],
-      // quantity: 1,
+      inputSearch: '',
+      dataCardResult: '',
+      quantity: 0,
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleChangeButton = this.handleChangeButton.bind(this);
+    this.handleChangeRadio = this.handleChangeRadio.bind(this);
+    this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
   handleDelete({ target }) {
@@ -26,26 +30,54 @@ class App extends React.Component {
     });
   }
 
-  async handleChange({ target }) {
+  handleToCart = ({ target }) => {
     const { id } = target.parentNode;
-    const { thumbnail, price, title } = await getItem(id);
-    const obj = { thumbnail, id, price, title };
-    this.setState((prev) => ({ productsId: [...prev.productsId, obj] }));
+    const { dataCardResult } = this.state;
+    const resultFilter = dataCardResult.find((element) => element.id === id);
+    resultFilter.quantity = 1;
+    this.setState((
+      prevState,
+    ) => ({ productsId: [...prevState.productsId, resultFilter] }));
   }
 
-  buttonDecrease = () => {
-    // this.setState((prevState) => ({
-    //   quantity: prevState.quantity === 0 ? 0 : prevState.quantity - 1 }));
+  async handleChangeRadio({ target: { value } }) {
+    const { results } = await getProductsFromCategoryAndQuery(value, false);
+    this.setState({ dataCardResult: results });
   }
 
-  buttonIncrease = async ({ target }) => {
-    const { thumbnail, price, title } = await getItem(target.id);
-    const obj = { thumbnail, id: target.id, price, title };
-    this.setState((prev) => ({ productsId: [...prev.productsId, obj] }));
+  async handleChangeButton() {
+    const { inputSearch } = this.state;
+    const { results } = await getProductsFromCategoryAndQuery(false, inputSearch);
+
+    this.setState({
+      dataCardResult: results,
+    });
+  }
+
+  handleChangeInput({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
+  buttonIncrease = ({ target: { id } }) => {
+    const { productsId } = this.state;
+    const resultFilter = productsId.find((element) => element.id === id);
+    resultFilter.quantity += 1;
+    this.setState((
+      prevState,
+    ) => ({ productsId: [...prevState.productsId, resultFilter] }));
+  }
+
+  buttonDecrease = ({ target: { id } }) => {
+    const { productsId } = this.state;
+    const resultFilter = productsId.find((element) => element.id === id);
+    resultFilter.quantity -= 1;
+    this.setState((
+      prevState,
+    ) => ({ productsId: [...prevState.productsId, resultFilter] }));
   }
 
   render() {
-    const { productsId, quantity } = this.state;
+    const { productsId, quantity, dataCardResult } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -54,7 +86,12 @@ class App extends React.Component {
             path="/"
             render={ () => (<Home
               productsId={ productsId }
-              handleChange={ this.handleChange }
+              handleToCart={ this.handleToCart }
+              dataCardResult={ dataCardResult }
+              handleChangeRadio={ this.handleChangeRadio }
+              handleChangeButton={ this.handleChangeButton }
+              handleChangeInput={ this.handleChangeInput }
+
             />) }
           />
 
@@ -78,7 +115,7 @@ class App extends React.Component {
             render={ (props) => (<ProductDetails
               { ...props }
               productsId={ productsId }
-              handleChange={ this.handleChange }
+              handleToCart={ this.handleToCart }
             />) }
           />
         </Switch>
