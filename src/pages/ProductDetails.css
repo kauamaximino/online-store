@@ -1,3 +1,7 @@
+.container-product-details {
+  display: flex;
+}
+
 .container-link-return-cart {
 
   /* border: 1px solid red; */

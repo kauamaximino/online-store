@@ -24,9 +24,9 @@ class App extends React.Component {
 
   handleDelete({ target }) {
     const { productsId } = this.state;
-    const test = productsId.filter((element) => element.id !== target.id);
+    const resultFilter = productsId.filter((element) => element.id !== target.id);
     this.setState({
-      productsId: test,
+      productsId: resultFilter,
     });
   }
 
@@ -110,12 +110,11 @@ class App extends React.Component {
           <Route
             exact
             path="/productdetails/:id"
-            // render={ (props) => <ProductDetails { ...props } />
-            // path="/productdetails"
             render={ (props) => (<ProductDetails
               { ...props }
               productsId={ productsId }
               handleToCart={ this.handleToCart }
+              handleChangeInput={ this.handleChangeInput }
             />) }
           />
         </Switch>
