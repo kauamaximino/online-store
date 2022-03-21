@@ -32,6 +32,8 @@ class Home extends React.Component {
       productsId,
       handleToCart,
       dataCardResult,
+      buttonDecrease,
+      buttonIncrease,
       handleChangeRadio, handleChangeButton, handleChangeInput } = this.props;
 
     return (
@@ -43,7 +45,6 @@ class Home extends React.Component {
           </span>
           <Link
             to="/cart"
-            // data-testid="shopping-cart-button"
             className="img-cart"
           >
             <img src={ imgcart } alt="imagem shopping cart" width="35px" />
@@ -107,6 +108,8 @@ class Home extends React.Component {
                         thumbnail={ element.thumbnail }
                         price={ element.price }
                         dataCardResult={ dataCardResult }
+                        buttonDecrease={ buttonDecrease }
+                        buttonIncrease={ buttonIncrease }
                       />
                       <Link
                         to={ `/productdetails/${element.id}` }

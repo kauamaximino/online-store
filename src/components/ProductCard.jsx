@@ -11,7 +11,6 @@ export default class ProductCard extends Component {
           className="title-product-card"
         >
           {title}
-
         </h5>
         <div className="img-product-card">
           <img src={ thumbnail } alt={ title } />
@@ -20,7 +19,6 @@ export default class ProductCard extends Component {
           className="price-product-card"
         >
           {`R$ ${price}`}
-
         </p>
       </div>
     );
